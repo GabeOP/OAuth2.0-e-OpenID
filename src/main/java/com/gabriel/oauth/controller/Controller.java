@@ -12,8 +12,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class Controller {
 
+  /*
+  * Graças ao OpenID Connect, esse método está retornando um Access Token, que será útil para que o Client possa autenticar
+  * o usuário sempre que necessário.
+  * Observação: O Token retornado nesse método, graças à interface OAuth2Accesstoken, é um opaque token. Um token que não carrega
+  * informações legíveis. Graças a isso, o Client deverá fazer uma chamada adicional ao provedor de identidade (Google,
+  * Github, Facebook, etc) para validar e obter informações sobre o token.
+  * */
   @GetMapping("/")
-  public OAuth2AccessToken acessToken(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
+  public OAuth2AccessToken accessToken(@RegisteredOAuth2AuthorizedClient OAuth2AuthorizedClient authorizedClient) {
     return authorizedClient.getAccessToken();
   }
 
